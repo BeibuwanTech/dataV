@@ -1,0 +1,9 @@
+html, body {
+	width:100%;
+	height:100%;
+	font-family:"microsoft yahei", arial, sans-serif;
+	background-color:#0b0f34;
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+body {margin:0 auto;min-width:375px;max-width:1920px;}
