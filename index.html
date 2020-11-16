@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <title>北部湾城市群综合科技服务监控大屏</title>
+    <link rel="stylesheet" href="assets/css/app.css" />
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="header-title">北部湾城市群综合科技服务监控大屏</h1>
+    </div>
+    <div class="wrapper">
+        <div class="content">
+            <div class="col col-l">
+                <div class="xpanel-wrapper xpanel-wrapper-60">
+                    <div class="xpanel xpanel-l-t">
+                        <div class="title">科技服务业城市排行Top10</div>
+                        <div class="chart-wrapper">
+                            <div class="chart-div" id="rankChart">
+                                <div class="chart-loader">
+                                    <div class="loader"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="xpanel-wrapper xpanel-wrapper-40">
+                    <div class="xpanel xpanel-l-b">
+                        <div class="title">科技服务资源知识图谱</div>
+                        <div class="chart-wrapper">
+                            <div class="chart-div" id="relationChart">
+                                <div class="chart-loader">
+                                    <div class="loader"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-c">
+                <div class="xpanel-wrapper xpanel-wrapper-65">
+                    <div class="xpanel no-bg">
+                        <div class="chart-wrapper">
+                            <h3 class="chart-title">科技服务产业全域一览图</h3>
+                            <div class="chart-div top-40" id="cityMap">
+                                <div class="chart-loader">
+                                    <div class="loader"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="xpanel-wrapper xpanel-wrapper-35">
+                    <div class="xpanel xpanel-c-b">
+                        <div class="title title-long">2020年月度科技服务产值情况及预测</div>
+                        <div class="chart-wrapper">
+                            <div class="chart-div" id="trendChart">
+                                <div class="chart-loader">
+                                    <div class="loader"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-r">
+                <div class="xpanel-wrapper xpanel-wrapper-20">
+                    <div class="xpanel xpanel-r-t">
+                        <div class="title">平台撮合服务意向成交额</div>
+                        <div class="flip-number-wrapper">
+                            <div class="flip-number">
+                                <div class="flip-number-number">
+                                    <div class="flip-single-number">0</div>
+                                    <div class="flip-single-number">1</div>
+                                    <div class="flip-single-number">2</div>
+                                    <div class="flip-single-number">0</div>
+                                    <div class="flip-single-number">1</div>
+                                    <div class="flip-single-number">.</div>
+                                    <div class="flip-single-number">3</div>
+                                    <div class="flip-single-number">4</div>
+                                    <div class="flip-single-unit">万元</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="xpanel-wrapper xpanel-wrapper-30">
+                    <div class="xpanel xpanel-r-m">
+                        <div class="title">平台搜索热词</div>
+                        <div class="chart-wrapper">
+                            <div class="chart-div" id="wordChart">
+                                <div class="chart-loader">
+                                    <div class="loader"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="xpanel-wrapper xpanel-wrapper-50">
+                    <div class="xpanel xpanel-r-b">
+                        <div class="title">CSRC行业分类</div>
+                        <div class="chart-wrapper">
+                            <div class="chart-div" id="csrcChart">
+                                <div class="chart-loader">
+                                    <div class="loader"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="assets/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/countUp.min.js"></script>
+    <script type="text/javascript" src="assets/js/echarts.min.js"></script>
+    <script type="text/javascript" src="assets/js/echarts-china-cities/beibuwan_onlyshape.js"></script>
+    <script type="text/javascript" src="assets/js/echarts-wordcloud.min.js"></script>
+    <script type="text/javascript" src="assets/js/echarts-theme-shine.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //获取当天日期
+            // (function () {
+            //     const now = new Date();
+            //     const year = now.getFullYear();
+            //     const month = now.getMonth() + 1;
+            //     const day = now.getDate();
+            //     $("#nowDate").html(year + "年" + month + "月" + day + "日");
+            // })();
+
+            //获取统计数据
+            // $.ajax({
+            //     url: "assets/data/count-data.json",
+            //     dataType: "json"
+            // }).done(function (data) {
+            //     //console.log('Data: ', data);
+            //     rollNum("listedCompany", 0, data.listed_companies_total);
+            //     rollNum("listedSecurity", 0, data.listed_securities_total);
+            //     rollNum("totalMarket", 0, data.total_market_value, 2);
+            //     rollNum("circulationMarket", 0, data.circulation_market_value, 2);
+            //     rollNum("shRatio", 0, data.sh_pe_ratio, 2);
+            //     rollNum("szRatio", 0, data.sz_pe_ratio, 2);
+            // }).fail(function (jqXHR, textStatus) {
+            //     console.log("Ajax Error: ", textStatus);
+            // });
+
+            //获取排行数据
+            const rankChart = echarts.init(document.getElementById("rankChart"), "shine");
+            const rankChartOpt = {
+                tooltip: {
+                    trigger: "axis",
+                    axisPointer: {
+                        type: "shadow"
+                    },
+                    formatter: function (params) {
+                        const param = params[0];
+                        const marker =
+                            '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#e6b600;"></span>';
+                        const suffix = '<span style="margin-left:5px;font-size:12px;">亿元</span>';
+                        return param.name + "<br />" +
+                            marker + "排名：" + (param.dataIndex + 1) + "<br />" +
+                            marker + "市价总值：" + param.value + suffix;
+                    }
+                },
+                grid: {
+                    top: 10,
+                    bottom: 10,
+                    left: 60
+                },
+                xAxis: {
+                    show: false,
+                    type: "value"
+                },
+                yAxis: {
+                    type: "category",
+                    inverse: true,
+                    axisLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLabel: {
+                        fontSize: 12,
+                        color: "#b0c2f9"
+                    }
+                },
+                series: [{
+                    name: "市价总值排行",
+                    type: "bar",
+                    barCategoryGap: "60%",
+                    label: {
+                        show: true,
+                        position: "right",
+                        fontSize: 12,
+                        color: "#188df0",
+                        emphasis: {
+                            color: "#e6b600"
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(
+                                0, 1, 1, 1,
+                                [{
+                                        offset: 0,
+                                        color: '#b0c2f9'
+                                    },
+                                    {
+                                        offset: 0.5,
+                                        color: '#188df0'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#185bff'
+                                    }
+                                ]
+                            )
+                        },
+                        emphasis: {
+                            color: new echarts.graphic.LinearGradient(
+                                0, 1, 1, 1,
+                                [{
+                                        offset: 0,
+                                        color: '#b0c2f9'
+                                    },
+                                    {
+                                        offset: 0.7,
+                                        color: '#e6b600'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#ceac09'
+                                    }
+                                ]
+                            )
+                        }
+                    }
+                }]
+            };
+            rankChart.setOption(rankChartOpt);
+            $.ajax({
+                url: "assets/data/ranking-list.json",
+                dataType: "json"
+            }).done(function () {
+                $("#rankChart").addClass("chart-done");
+            }).done(function (data) {
+                //console.log('Data: ', data);
+                const xData = [];
+                const yData = [];
+                for (let i in data) {
+                    xData.push(data[i].market_capitalization);
+                    yData.push(data[i].stock_name);
+                }
+                rankChart.setOption({
+                    yAxis: {
+                        data: yData
+                    },
+                    series: [{
+                        name: "市价总值排行",
+                        data: xData
+                    }]
+                });
+            }).fail(function (jqXHR) {
+                console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
+            });
+
+            //城市经纬度
+            const scatterGeo = {
+                "大庆": [125.03, 46.58]
+            };
+            //城市数据
+            const scatterVal = [{
+                    name: "海口",
+                    value: 78
+                },
+                {
+                    name: "南宁",
+                    value: 66
+                },
+                {
+                    name: "湛江",
+                    value: 12
+                },
+                {
+                    name: "北海",
+                    value: 99
+                },
+                {
+                    name: "齐齐哈尔",
+                    value: 14
+                },
+                {
+                    name: "盐城",
+                    value: 15
+                },
+                {
+                    name: "赤峰",
+                    value: 16
+                }
+            ];
+            //数据转换，转换后的格式：[{name: 'cityName', value: [lng, lat, val]}, {...}]
+            const convertScatterData = function (data) {
+                let res = [];
+                for (let i = 0; i < data.length; i++) {
+                    let geoCoord = scatterGeo[data[i].name];
+                    if (geoCoord) {
+                        res.push({
+                            name: data[i].name,
+                            value: geoCoord.concat(data[i].value)
+                        });
+                    }
+                }
+                return res;
+            };
+            console.log(convertScatterData(scatterVal))
+            //初始化echarts实例
+            const cityMap = echarts.init(document.getElementById("cityMap"));
+            const cityMapOpt = {
+                legend: {
+                    data: ['科技服务业成熟度'], //与series的name属性对应
+                    orient: 'vertical',
+                    y: 'bottom',
+                    x: 'right',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function (params) {
+                        return params.name + ' : ' + params.value[2];
+                    }
+                },
+                visualMap: {
+                    min: 0,
+                    max: 100,
+                    calculable: true,
+                    inRange: {
+                        color: ['#50a3ba', '#eac736', '#d94e5d']
+                    },
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                geo: {
+                    map: '北部湾城市群市级',
+                    roam: false, //开启鼠标缩放和漫游
+                    zoom: 1, //地图缩放级别
+                    selectedMode: true, //选中模式：single | multiple
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    layoutCenter: ['50%', '50%'], //设置后left/right/top/bottom等属性无效
+                    layoutSize: '100%', //保持地图宽高比
+                    label: {
+                        normal: {
+                            show: true,
+                            fontSize: '14',
+                            fontWeight: '600',
+                            color: '#fff'
+                        },
+                        emphasis: {
+                            show: true,
+                            color: '#f19000'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#101f32',
+                            borderWidth: 1.1,
+                            borderColor: '#43d0d6'
+                        },
+                        emphasis: {
+                            areaColor: '#069'
+                        }
+                    }
+                },
+                series: [{
+                    name: '科技服务业成熟度',
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    symbolSize: 12,
+                    label: {
+                        normal: {
+                            show: false
+                        },
+                        emphasis: {
+                            show: false
+                        }
+                    },
+                    itemStyle: {
+                        emphasis: {
+                            borderColor: '#fff',
+                            borderWidth: 1
+                        }
+                    },
+                    data: convertScatterData(scatterVal)
+                }]
+            };
+            cityMap.setOption(cityMapOpt);
+
+            // 获取月度股票情况数据
+            const trendChart = echarts.init(document.getElementById("trendChart"), "shine");
+            const trendChartOpt = {
+                tooltip: {
+                    trigger: "axis",
+                    axisPointer: {
+                        type: "none"
+                    }
+                },
+                legend: {
+                    left: "center",
+                    bottom: 3,
+                    itemWidth: 15,
+                    itemHeight: 10,
+                    textStyle: {
+                        fontSize: 12,
+                        color: "#b0c2f9"
+                    },
+                    data: ["市价总值", "成交总额", "平均市盈率"]
+                },
+                grid: {
+                    top: 40,
+                    bottom: 50,
+                    left: 60,
+                    right: 60
+                },
+                xAxis: {
+                    type: "category",
+                    axisLine: {
+                        lineStyle: {
+                            color: "#b0c2f9"
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLabel: {
+                        fontSize: 12,
+                        color: "#b0c2f9"
+                    }
+                },
+                yAxis: [{
+                    name: "金额",
+                    type: "value",
+                    splitNumber: 5,
+                    axisLine: {
+                        lineStyle: {
+                            color: "#b0c2f9"
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        color: "#b0c2f9"
+                    },
+                    axisLabel: {
+                        fontSize: 12,
+                        color: "#b0c2f9",
+                        formatter: (value, index) => {
+                            return parseInt(value / 10000) + "万亿";
+                        }
+                    }
+                }, {
+                    name: "市盈率",
+                    type: "value",
+                    splitNumber: 5,
+                    maxInterval: 5,
+                    minInterval: 5,
+                    interval: 5,
+                    axisLine: {
+                        lineStyle: {
+                            color: "#b0c2f9"
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        color: "#b0c2f9"
+                    },
+                    axisLabel: {
+                        fontSize: 12,
+                        color: "#b0c2f9"
+                    }
+                }],
+                visualMap: {
+                    show: false,
+                    seriesIndex: 2,
+                    dimension: 0,
+                    pieces: [{
+                        lte: 9,
+                        color: "rgba(176, 58, 91, 1)"
+                    }, {
+                        gt: 9,
+                        lte: 11,
+                        color: "rgba(176, 58, 91, 0.5)"
+                    }]
+                },
+                series: [{
+                    name: "市价总值",
+                    type: "pictorialBar",
+                    symbol: 'path://d="M150 50 L130 130 L170 130  Z"',
+                    barCategoryGap: "40%",
+                    itemStyle: {
+                        color: function (params) {
+                            if (params.dataIndex >= 10) {
+                                return "rgba(119, 96, 246, 0.5)";
+                            }
+                            return "rgba(119, 96, 246, 1)";
+                        }
+                    },
+                    markPoint: {
+                        itemStyle: {
+                            color: "rgba(119, 96, 246, 1)"
+                        },
+                        data: [{
+                            name: "最大值",
+                            type: "max"
+                        }]
+                    },
+                    markLine: {
+                        lineStyle: {
+                            color: "rgba(119, 96, 246, 1)"
+                        },
+                        label: {
+                            position: "middle",
+                            formatter: "月度平均市价总值：{c}亿元"
+                        },
+                        data: [{
+                            name: "平均值",
+                            type: "average"
+                        }]
+                    }
+                }, {
+                    name: "成交总额",
+                    type: "pictorialBar",
+                    symbol: 'path://d="M150 50 L130 130 L170 130  Z"',
+                    barCategoryGap: "40%",
+                    itemStyle: {
+                        color: function (params) {
+                            if (params.dataIndex >= 10) {
+                                return "rgba(230, 182, 0, 0.5)";
+                            }
+                            return "rgba(230, 182, 0, 1)";
+                        }
+                    },
+                    markPoint: {
+                        itemStyle: {
+                            color: "rgba(230, 182, 0, 1)"
+                        },
+                        data: [{
+                            name: "最大值",
+                            type: "max"
+                        }]
+                    },
+                    markLine: {
+                        lineStyle: {
+                            color: "rgba(230, 182, 0, 1)"
+                        },
+                        label: {
+                            position: "middle",
+                            formatter: "月度平均成交总额：{c}亿元"
+                        },
+                        data: [{
+                            name: "平均值",
+                            type: "average"
+                        }]
+                    }
+                }, {
+                    name: "平均市盈率",
+                    type: "line",
+                    yAxisIndex: 1
+                }]
+            };
+            trendChart.setOption(trendChartOpt);
+            $.ajax({
+                url: "assets/data/month-count.json",
+                dataType: "json"
+            }).done(function () {
+                $("#trendChart").addClass("chart-done");
+            }).done(function (data) {
+                //console.log('Data: ', data);
+                const xData = [];
+                const yData1 = [];
+                const yData2 = [];
+                const yData3 = [];
+                for (let i in data) {
+                    xData.push(data[i].month);
+                    yData1.push(data[i].sh_market_capitalization);
+                    yData2.push(data[i].sh_transaction_amount);
+                    yData3.push(data[i].sh_pe_ratio);
+                }
+                trendChart.setOption({
+                    xAxis: {
+                        data: xData,
+                    },
+                    series: [{
+                        name: "市价总值",
+                        data: yData1
+                    }, {
+                        name: "成交总额",
+                        data: yData2
+                    }, {
+                        name: "平均市盈率",
+                        data: yData3
+                    }]
+                });
+            }).fail(function (jqXHR) {
+                console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
+            });
+
+            //获取CSRC行业分类数据
+            const csrcChart = echarts.init(document.getElementById("csrcChart"), "shine");
+            const csrcChartOpt = {
+                tooltip: {
+                    trigger: "item",
+                    formatter: "{b0}<br />股票数：{c0}<br />占比：{d0}%"
+                },
+                legend: {
+                    type: "scroll",
+                    orient: "vertical",
+                    padding: 0,
+                    top: 15,
+                    right: 0,
+                    itemGap: 5,
+                    itemWidth: 10,
+                    itemHeight: 10,
+                    textStyle: {
+                        fontSize: 10,
+                        color: "#b0c2f9"
+                    }
+                },
+                series: [{
+                    name: "CSRC行业分类",
+                    type: "pie",
+                    center: ["47%", "55%"],
+                    radius: ["30%", "85%"]
+                }]
+            };
+            csrcChart.setOption(csrcChartOpt);
+            $.ajax({
+                url: "assets/data/csrc-industry.json",
+                dataType: "json"
+            }).done(function () {
+                $("#csrcChart").addClass("chart-done");
+            }).done(function (data) {
+                //console.log('Data: ', data);
+                const chartData = [];
+                for (let i in data) {
+                    chartData.push({
+                        name: data[i].alias,
+                        value: data[i].stock
+                    });
+                }
+                csrcChart.setOption({
+                    series: [{
+                        name: "CSRC行业分类",
+                        data: chartData
+                    }]
+                });
+            }).fail(function (jqXHR) {
+                console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
+            });
+
+            /*************** 词云 **************/
+            //https://github.com/ecomfe/echarts-wordcloud
+            //初始化echarts实例
+            const wordChart = echarts.init(document.getElementById("wordChart"));
+            const wordOpt = {
+                series: [{
+                    type: 'wordCloud',
+                    shape: 'circle', //circle cardioid diamond triangle-forward triangle
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    right: 0,
+                    width: '100%',
+                    height: '90%',
+                    gridSize: 0, //值越大，word间的距离越大，单位像素
+                    sizeRange: [20, 40], //word的字体大小区间，单位像素
+                    rotationRange: [-90, 90], //word的可旋转角度区间
+                    textStyle: {
+                        normal: {
+                            color: function () {
+                                return 'rgb(' + [
+                                    Math.round(Math.random() * 160),
+                                    Math.round(Math.random() * 160),
+                                    Math.round(Math.random() * 160)
+                                ].join(',') + ')';
+                            }
+                        },
+                        emphasis: {
+                            shadowBlur: 2,
+                            shadowColor: '#000'
+                        }
+                    },
+                    data: [{
+                        name: '数据可视化',
+                        value: 3000,
+                        textStyle: {
+                            normal: {
+                                color: '#f52f55'
+                            },
+                            emphasis: {}
+                        }
+                    }, {
+                        name: '大数据',
+                        value: 2181
+                    }, {
+                        name: '云计算',
+                        value: 1386
+                    }, {
+                        name: '物联网',
+                        value: 2055
+                    }, {
+                        name: '移动互联网',
+                        value: 2467
+                    }, {
+                        name: '人工智能',
+                        value: 2244
+                    }, {
+                        name: '深度学习',
+                        value: 1898
+                    }, {
+                        name: '机器学习',
+                        value: 1484
+                    }, {
+                        name: '区块链',
+                        value: 3865
+                    }, {
+                        name: 'AI',
+                        value: 897
+                    }, {
+                        name: 'Big Data',
+                        value: 847
+                    }, {
+                        name: 'Deep Learning',
+                        value: 1366
+                    }, {
+                        name: 'IoT',
+                        value: 555
+                    }, {
+                        name: 'Data Visualization',
+                        value: 550
+                    }, {
+                        name: '互联网+',
+                        value: 2222
+                    }, {
+                        name: '智能合约',
+                        value: 366
+                    }, {
+                        name: '比特币',
+                        value: 360
+                    }, {
+                        name: 'Block Chain',
+                        value: 282
+                    }, {
+                        name: '数据挖掘',
+                        value: 273
+                    }, {
+                        name: 'Hadoop',
+                        value: 265
+                    }]
+                }],
+            };
+            wordChart.setOption(wordOpt);
+
+            /*************** 关系图 **************/
+            //初始化echarts实例
+            const relationChart = echarts.init(document.getElementById("relationChart"));
+            const relationOpt = {
+                animationDurationUpdate: 1500,
+                animationEasingUpdate: 'quinticInOut',
+                label: {
+                    normal: {
+                        show: true,
+                        textStyle: {
+                            fontSize: 12
+                        }
+                    }
+                },
+                series: [{
+                    type: 'graph',
+                    symbolSize: 45,
+                    focusNodeAdjacency: true,
+                    roam: true,
+                    layout: 'force',
+                    force: {
+                        repulsion: 260 //斥力因子，值越大，斥力越大
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            textStyle: {
+                                fontSize: 12
+                            },
+                        }
+                    },
+                    edgeSymbolSize: [4, 50],
+                    edgeLabel: {
+                        normal: {
+                            show: true,
+                            textStyle: {
+                                fontSize: 10
+                            },
+                            formatter: "{c}"
+                        }
+                    },
+                    categories: [{
+                        name: '全栈',
+                        itemStyle: {
+                            normal: {
+                                color: '#f2637b'
+                            }
+                        }
+                    }, {
+                        name: '前端',
+                        itemStyle: {
+                            normal: {
+                                color: "#eaa674",
+                            }
+                        }
+                    }, {
+                        name: '移动端',
+                        itemStyle: {
+                            normal: {
+                                color: "#3aa1ff",
+                            }
+                        }
+                    }, {
+                        name: '服务端',
+                        itemStyle: {
+                            normal: {
+                                color: "#4ecb73",
+                            }
+                        }
+                    }],
+                    data: [{
+                        name: '全栈',
+                        category: 0,
+                        draggable: true
+                    }, {
+                        name: '前端',
+                        category: 1,
+                        draggable: true
+                    }, {
+                        name: '移动端',
+                        category: 2,
+                        draggable: true
+                    }, {
+                        name: '服务端',
+                        category: 3,
+                        draggable: true
+                    }, {
+                        name: 'HTML',
+                        category: 1,
+                        draggable: true,
+                    }, {
+                        name: 'CSS',
+                        category: 1,
+                        draggable: true,
+                    }, {
+                        name: 'JavaScript',
+                        category: 1,
+                        draggable: true,
+                    }, {
+                        name: 'TypeScript',
+                        category: 1,
+                        draggable: true,
+                    }, {
+                        name: 'Java',
+                        category: 3,
+                        draggable: true,
+                    }, {
+                        name: 'PHP',
+                        category: 3,
+                        draggable: true,
+                    }, {
+                        name: 'Python',
+                        category: 3,
+                        draggable: true,
+                    }, {
+                        name: 'Andriod',
+                        category: 2,
+                        draggable: true,
+                    }, {
+                        name: 'Object-C',
+                        category: 2,
+                        draggable: true,
+                    }, {
+                        name: 'Swift',
+                        category: 2,
+                        draggable: true,
+                    }],
+                    links: [{
+                        source: 0,
+                        target: 1,
+                        value: ''
+                    }, {
+                        source: 0,
+                        target: 2,
+                        value: ''
+                    }, {
+                        source: 0,
+                        target: 3,
+                        value: ''
+                    }, {
+                        source: 1,
+                        target: 4,
+                        value: ''
+                    }, {
+                        source: 1,
+                        target: 5,
+                        value: ''
+                    }, {
+                        source: 1,
+                        target: 6,
+                        value: ''
+                    }, {
+                        source: 1,
+                        target: 7,
+                        value: ''
+                    }, {
+                        source: 6,
+                        target: 7,
+                        value: '超集'
+                    }, {
+                        source: 3,
+                        target: 8,
+                        value: ''
+                    }, {
+                        source: 3,
+                        target: 9,
+                        value: ''
+                    }, {
+                        source: 3,
+                        target: 10,
+                        value: ''
+                    }, {
+                        source: 9,
+                        target: 10,
+                        value: '脚本'
+                    }, {
+                        source: 2,
+                        target: 11,
+                        value: ''
+                    }, {
+                        source: 2,
+                        target: 12,
+                        value: ''
+                    }, {
+                        source: 2,
+                        target: 13,
+                        value: ''
+                    }, {
+                        source: 12,
+                        target: 13,
+                        value: 'iOS'
+                    }],
+                    lineStyle: {
+                        normal: {
+                            opacity: 0.9,
+                            width: 1,
+                            curveness: 0
+                        }
+                    }
+                }]
+            };
+            relationChart.setOption(relationOpt);
+
+            //浏览器窗口大小变化时，重置报表大小
+            $(window).resize(function () {
+                rankChart.resize();
+                wordChart.resize();
+                relationChart.resize();
+                cityMap.resize();
+                trendChart.resize();
+                csrcChart.resize();
+            });
+        });
+
+        //数字变化特效
+        function rollNum(elId, startVal, endVal, decimalNum) {
+            let n = decimalNum || 0;
+            let countUp = new CountUp(elId, startVal, endVal, n, 2.5, {
+                useEasing: true,
+                useGrouping: true,
+                separator: ',',
+                decimal: '.'
+            });
+            if (!countUp.error) {
+                countUp.start();
+            } else {
+                console.error(countUp.error);
+            }
+        }
+    </script>
+</body>
+
+</html>

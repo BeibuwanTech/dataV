@@ -681,13 +681,6 @@
 				};
 				//地图配置项
 				const sactterMapOpt = {
-					title: {
-						text: '全国主要城市空气质量',
-						x: 'center',
-						textStyle: {
-							color: '#fff'
-						}
-					},
 					legend: {
 						data: ['PM2.5'], //与series的name属性对应
 				        orient: 'vertical',
@@ -843,7 +836,7 @@
 				        map: '苏州',
 				        roam: false, //开启鼠标缩放和漫游
 				        zoom: 1, //地图缩放级别
-						selectedMode: false, //选中模式：single | multiple
+						selectedMode: true, //选中模式：single | multiple
 						left: 0,
 						right: 0,
 						top: 0,
