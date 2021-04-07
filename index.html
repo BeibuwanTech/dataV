@@ -20,18 +20,6 @@
             <div class="col col-l">
                 <div class="xpanel-wrapper xpanel-wrapper-60">
                     <div class="xpanel xpanel-l-t">
-                        <div class="title">科技服务业市场主体排行Top10</div>
-                        <div class="chart-wrapper">
-                            <div class="chart-div" id="rankChart">
-                                <div class="chart-loader">
-                                    <div class="loader"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="xpanel-wrapper xpanel-wrapper-40">
-                    <div class="xpanel xpanel-l-b">
                         <div class="title">科技服务资源知识图谱</div>
                         <div class="chart-wrapper">
                             <div class="chart-div" id="relationChart">
@@ -42,9 +30,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="xpanel-wrapper xpanel-wrapper-40">
+                    <div class="xpanel xpanel-l-b">
+                        <div class="title">科技服务业城市排行Top10</div>
+                        <div class="chart-wrapper">
+                            <div class="chart-div" id="rankChart">
+                                <div class="chart-loader">
+                                    <div class="loader"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col col-c">
-                <div class="xpanel-wrapper xpanel-wrapper-65">
+                <div class="xpanel-wrapper xpanel-wrapper-100">
                     <div class="xpanel no-bg">
                         <div class="chart-wrapper">
                             <h3 class="chart-title">科技服务产业全域一览图</h3>
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="xpanel-wrapper xpanel-wrapper-35">
+                <!-- <div class="xpanel-wrapper xpanel-wrapper-35">
                     <div class="xpanel xpanel-c-b">
                         <div class="title title-long">2020年月度科技服务产值情况及预测</div>
                         <div class="chart-wrapper">
@@ -67,7 +67,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col col-r">
                 <div class="xpanel-wrapper xpanel-wrapper-20">
@@ -104,7 +104,7 @@
                 </div>
                 <div class="xpanel-wrapper xpanel-wrapper-50">
                     <div class="xpanel xpanel-r-b">
-                        <div class="title">CSRC行业分类</div>
+                        <div class="title">科技服务行业分类</div>
                         <div class="chart-wrapper">
                             <div class="chart-div" id="csrcChart">
                                 <div class="chart-loader">
@@ -163,10 +163,10 @@
                         const param = params[0];
                         const marker =
                             '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#e6b600;"></span>';
-                        const suffix = '<span style="margin-left:5px;font-size:12px;">亿元</span>';
+                        const suffix = '<span style="margin-left:5px;font-size:12px;">百万元</span>';
                         return param.name + "<br />" +
                             marker + "排名：" + (param.dataIndex + 1) + "<br />" +
-                            marker + "市价总值：" + param.value + suffix;
+                            marker + "产值：" + param.value + suffix;
                     }
                 },
                 grid: {
@@ -210,17 +210,17 @@
                             color: new echarts.graphic.LinearGradient(
                                 0, 1, 1, 1,
                                 [{
-                                        offset: 0,
-                                        color: '#b0c2f9'
-                                    },
-                                    {
-                                        offset: 0.5,
-                                        color: '#188df0'
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: '#185bff'
-                                    }
+                                    offset: 0,
+                                    color: '#b0c2f9'
+                                },
+                                {
+                                    offset: 0.5,
+                                    color: '#188df0'
+                                },
+                                {
+                                    offset: 1,
+                                    color: '#185bff'
+                                }
                                 ]
                             )
                         },
@@ -228,17 +228,17 @@
                             color: new echarts.graphic.LinearGradient(
                                 0, 1, 1, 1,
                                 [{
-                                        offset: 0,
-                                        color: '#b0c2f9'
-                                    },
-                                    {
-                                        offset: 0.7,
-                                        color: '#e6b600'
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: '#ceac09'
-                                    }
+                                    offset: 0,
+                                    color: '#b0c2f9'
+                                },
+                                {
+                                    offset: 0.7,
+                                    color: '#e6b600'
+                                },
+                                {
+                                    offset: 1,
+                                    color: '#ceac09'
+                                }
                                 ]
                             )
                         }
@@ -274,37 +274,43 @@
 
             //城市经纬度
             const scatterGeo = {
-                "大庆": [125.03, 46.58]
+                "海南生态软件园": [110.1, 20.03],
+                "南宁电子信息产业园": [108.320004, 22.82402],
+                "湛江高新园区": [110.320004, 20.82402],
+                "茂名高新技术区": [110.550004, 21.82402],
+                "洋浦经济开发区": [109.150004, 19.43402],
+                "北海经济开发区": [109.150004, 21.43402],
+                "防城港冶金工业区": [108.150004, 21.53402]
             };
             //城市数据
             const scatterVal = [{
-                    name: "海口",
-                    value: 78
-                },
-                {
-                    name: "南宁",
-                    value: 66
-                },
-                {
-                    name: "湛江",
-                    value: 12
-                },
-                {
-                    name: "北海",
-                    value: 99
-                },
-                {
-                    name: "齐齐哈尔",
-                    value: 14
-                },
-                {
-                    name: "盐城",
-                    value: 15
-                },
-                {
-                    name: "赤峰",
-                    value: 16
-                }
+                name: "海南生态软件园",
+                value: 90
+            },
+            {
+                name: "南宁电子信息产业园",
+                value: 84
+            },
+            {
+                name: "湛江高新园区",
+                value: 50
+            },
+            {
+                name: "茂名高新技术区",
+                value: 39
+            },
+            {
+                name: "洋浦经济开发区",
+                value: 89
+            },
+            {
+                name: "北海经济开发区",
+                value: 70
+            },
+            {
+                name: "防城港冶金工业区",
+                value: 79
+            }
             ];
             //数据转换，转换后的格式：[{name: 'cityName', value: [lng, lat, val]}, {...}]
             const convertScatterData = function (data) {
@@ -320,7 +326,6 @@
                 }
                 return res;
             };
-            console.log(convertScatterData(scatterVal))
             //初始化echarts实例
             const cityMap = echarts.init(document.getElementById("cityMap"));
             const cityMapOpt = {
@@ -388,7 +393,7 @@
                     name: '科技服务业成熟度',
                     type: 'scatter',
                     coordinateSystem: 'geo',
-                    symbolSize: 12,
+                    symbolSize: 50,
                     label: {
                         normal: {
                             show: false
@@ -409,224 +414,220 @@
             cityMap.setOption(cityMapOpt);
 
             // 获取月度股票情况数据
-            const trendChart = echarts.init(document.getElementById("trendChart"), "shine");
-            const trendChartOpt = {
-                tooltip: {
-                    trigger: "axis",
-                    axisPointer: {
-                        type: "none"
-                    }
-                },
-                legend: {
-                    left: "center",
-                    bottom: 3,
-                    itemWidth: 15,
-                    itemHeight: 10,
-                    textStyle: {
-                        fontSize: 12,
-                        color: "#b0c2f9"
-                    },
-                    data: ["市价总值", "成交总额", "平均市盈率"]
-                },
-                grid: {
-                    top: 40,
-                    bottom: 50,
-                    left: 60,
-                    right: 60
-                },
-                xAxis: {
-                    type: "category",
-                    axisLine: {
-                        lineStyle: {
-                            color: "#b0c2f9"
-                        }
-                    },
-                    axisTick: {
-                        show: false
-                    },
-                    axisLabel: {
-                        fontSize: 12,
-                        color: "#b0c2f9"
-                    }
-                },
-                yAxis: [{
-                    name: "金额",
-                    type: "value",
-                    splitNumber: 5,
-                    axisLine: {
-                        lineStyle: {
-                            color: "#b0c2f9"
-                        }
-                    },
-                    splitLine: {
-                        show: false
-                    },
-                    axisTick: {
-                        color: "#b0c2f9"
-                    },
-                    axisLabel: {
-                        fontSize: 12,
-                        color: "#b0c2f9",
-                        formatter: (value, index) => {
-                            return parseInt(value / 10000) + "万亿";
-                        }
-                    }
-                }, {
-                    name: "市盈率",
-                    type: "value",
-                    splitNumber: 5,
-                    maxInterval: 5,
-                    minInterval: 5,
-                    interval: 5,
-                    axisLine: {
-                        lineStyle: {
-                            color: "#b0c2f9"
-                        }
-                    },
-                    splitLine: {
-                        show: false
-                    },
-                    axisTick: {
-                        color: "#b0c2f9"
-                    },
-                    axisLabel: {
-                        fontSize: 12,
-                        color: "#b0c2f9"
-                    }
-                }],
-                visualMap: {
-                    show: false,
-                    seriesIndex: 2,
-                    dimension: 0,
-                    pieces: [{
-                        lte: 9,
-                        color: "rgba(176, 58, 91, 1)"
-                    }, {
-                        gt: 9,
-                        lte: 11,
-                        color: "rgba(176, 58, 91, 0.5)"
-                    }]
-                },
-                series: [{
-                    name: "市价总值",
-                    type: "pictorialBar",
-                    symbol: 'path://d="M150 50 L130 130 L170 130  Z"',
-                    barCategoryGap: "40%",
-                    itemStyle: {
-                        color: function (params) {
-                            if (params.dataIndex >= 10) {
-                                return "rgba(119, 96, 246, 0.5)";
-                            }
-                            return "rgba(119, 96, 246, 1)";
-                        }
-                    },
-                    markPoint: {
-                        itemStyle: {
-                            color: "rgba(119, 96, 246, 1)"
-                        },
-                        data: [{
-                            name: "最大值",
-                            type: "max"
-                        }]
-                    },
-                    markLine: {
-                        lineStyle: {
-                            color: "rgba(119, 96, 246, 1)"
-                        },
-                        label: {
-                            position: "middle",
-                            formatter: "月度平均市价总值：{c}亿元"
-                        },
-                        data: [{
-                            name: "平均值",
-                            type: "average"
-                        }]
-                    }
-                }, {
-                    name: "成交总额",
-                    type: "pictorialBar",
-                    symbol: 'path://d="M150 50 L130 130 L170 130  Z"',
-                    barCategoryGap: "40%",
-                    itemStyle: {
-                        color: function (params) {
-                            if (params.dataIndex >= 10) {
-                                return "rgba(230, 182, 0, 0.5)";
-                            }
-                            return "rgba(230, 182, 0, 1)";
-                        }
-                    },
-                    markPoint: {
-                        itemStyle: {
-                            color: "rgba(230, 182, 0, 1)"
-                        },
-                        data: [{
-                            name: "最大值",
-                            type: "max"
-                        }]
-                    },
-                    markLine: {
-                        lineStyle: {
-                            color: "rgba(230, 182, 0, 1)"
-                        },
-                        label: {
-                            position: "middle",
-                            formatter: "月度平均成交总额：{c}亿元"
-                        },
-                        data: [{
-                            name: "平均值",
-                            type: "average"
-                        }]
-                    }
-                }, {
-                    name: "平均市盈率",
-                    type: "line",
-                    yAxisIndex: 1
-                }]
-            };
-            trendChart.setOption(trendChartOpt);
-            $.ajax({
-                url: "assets/data/month-count.json",
-                dataType: "json"
-            }).done(function () {
-                $("#trendChart").addClass("chart-done");
-            }).done(function (data) {
-                //console.log('Data: ', data);
-                const xData = [];
-                const yData1 = [];
-                const yData2 = [];
-                const yData3 = [];
-                for (let i in data) {
-                    xData.push(data[i].month);
-                    yData1.push(data[i].sh_market_capitalization);
-                    yData2.push(data[i].sh_transaction_amount);
-                    yData3.push(data[i].sh_pe_ratio);
-                }
-                trendChart.setOption({
-                    xAxis: {
-                        data: xData,
-                    },
-                    series: [{
-                        name: "市价总值",
-                        data: yData1
-                    }, {
-                        name: "成交总额",
-                        data: yData2
-                    }, {
-                        name: "平均市盈率",
-                        data: yData3
-                    }]
-                });
-            }).fail(function (jqXHR) {
-                console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
-            });
+            // const trendChart = echarts.init(document.getElementById("trendChart"), "shine");
+            // const trendChartOpt = {
+            //     tooltip: {
+            //         trigger: "axis",
+            //         axisPointer: {
+            //             type: "none"
+            //         }
+            //     },
+            //     legend: {
+            //         left: "center",
+            //         bottom: 3,
+            //         itemWidth: 15,
+            //         itemHeight: 10,
+            //         textStyle: {
+            //             fontSize: 12,
+            //             color: "#b0c2f9"
+            //         },
+            //         data: ["市价总值", "成交总额", "平均市盈率"]
+            //     },
+            //     grid: {
+            //         top: 40,
+            //         bottom: 50,
+            //         left: 60,
+            //         right: 60
+            //     },
+            //     xAxis: {
+            //         type: "category",
+            //         axisLine: {
+            //             lineStyle: {
+            //                 color: "#b0c2f9"
+            //             }
+            //         },
+            //         axisTick: {
+            //             show: false
+            //         },
+            //         axisLabel: {
+            //             fontSize: 12,
+            //             color: "#b0c2f9"
+            //         }
+            //     },
+            //     yAxis: [{
+            //         name: "金额",
+            //         type: "value",
+            //         splitNumber: 5,
+            //         axisLine: {
+            //             lineStyle: {
+            //                 color: "#b0c2f9"
+            //             }
+            //         },
+            //         splitLine: {
+            //             show: false
+            //         },
+            //         axisTick: {
+            //             color: "#b0c2f9"
+            //         },
+            //         axisLabel: {
+            //             fontSize: 12,
+            //             color: "#b0c2f9",
+            //             formatter: (value, index) => {
+            //                 return parseInt(value / 10000) + "万亿";
+            //             }
+            //         }
+            //     }, {
+            //         name: "市盈率",
+            //         type: "value",
+            //         splitNumber: 5,
+            //         maxInterval: 5,
+            //         minInterval: 5,
+            //         interval: 5,
+            //         axisLine: {
+            //             lineStyle: {
+            //                 color: "#b0c2f9"
+            //             }
+            //         },
+            //         splitLine: {
+            //             show: false
+            //         },
+            //         axisTick: {
+            //             color: "#b0c2f9"
+            //         },
+            //         axisLabel: {
+            //             fontSize: 12,
+            //             color: "#b0c2f9"
+            //         }
+            //     }],
+            //     visualMap: {
+            //         show: false,
+            //         seriesIndex: 2,
+            //         dimension: 0,
+            //         pieces: [{
+            //             lte: 9,
+            //             color: "rgba(176, 58, 91, 1)"
+            //         }, {
+            //             gt: 9,
+            //             lte: 11,
+            //             color: "rgba(176, 58, 91, 0.5)"
+            //         }]
+            //     },
+            //     series: [{
+            //         name: "市价总值",
+            //         type: "pictorialBar",
+            //         symbol: 'path://d="M150 50 L130 130 L170 130  Z"',
+            //         barCategoryGap: "40%",
+            //         itemStyle: {
+            //             color: function (params) {
+            //                 if (params.dataIndex >= 10) {
+            //                     return "rgba(119, 96, 246, 0.5)";
+            //                 }
+            //                 return "rgba(119, 96, 246, 1)";
+            //             }
+            //         },
+            //         markPoint: {
+            //             itemStyle: {
+            //                 color: "rgba(119, 96, 246, 1)"
+            //             },
+            //             data: [{
+            //                 name: "最大值",
+            //                 type: "max"
+            //             }]
+            //         },
+            //         markLine: {
+            //             lineStyle: {
+            //                 color: "rgba(119, 96, 246, 1)"
+            //             },
+            //             label: {
+            //                 position: "middle",
+            //                 formatter: "月度平均市价总值：{c}亿元"
+            //             },
+            //             data: [{
+            //                 name: "平均值",
+            //                 type: "average"
+            //             }]
+            //         }
+            //     }, {
+            //         name: "成交总额",
+            //         type: "pictorialBar",
+            //         symbol: 'path://d="M150 50 L130 130 L170 130  Z"',
+            //         barCategoryGap: "40%",
+            //         itemStyle: {
+            //             color: function (params) {
+            //                 if (params.dataIndex >= 10) {
+            //                     return "rgba(230, 182, 0, 0.5)";
+            //                 }
+            //                 return "rgba(230, 182, 0, 1)";
+            //             }
+            //         },
+            //         markPoint: {
+            //             itemStyle: {
+            //                 color: "rgba(230, 182, 0, 1)"
+            //             },
+            //             data: [{
+            //                 name: "最大值",
+            //                 type: "max"
+            //             }]
+            //         },
+            //         markLine: {
+            //             lineStyle: {
+            //                 color: "rgba(230, 182, 0, 1)"
+            //             },
+            //             label: {
+            //                 position: "middle",
+            //                 formatter: "月度平均成交总额：{c}亿元"
+            //             },
+            //             data: [{
+            //                 name: "平均值",
+            //                 type: "average"
+            //             }]
+            //         }
+            //     }, {
+            //         name: "平均市盈率",
+            //         type: "line",
+            //         yAxisIndex: 1
+            //     }]
+            // };
+            // trendChart.setOption(trendChartOpt);
+            // $.ajax({
+            //     url: "assets/data/month-count.json",
+            //     dataType: "json"
+            // }).done(function () {
+            //     $("#trendChart").addClass("chart-done");
+            // }).done(function (data) {
+            //     //console.log('Data: ', data);
+            //     const xData = [];
+            //     const yData1 = [];
+            //     const yData2 = [];
+            //     const yData3 = [];
+            //     for (let i in data) {
+            //         xData.push(data[i].month);
+            //         yData1.push(data[i].sh_market_capitalization);
+            //         yData2.push(data[i].sh_transaction_amount);
+            //         yData3.push(data[i].sh_pe_ratio);
+            //     }
+            //     trendChart.setOption({
+            //         xAxis: {
+            //             data: xData,
+            //         },
+            //         series: [{
+            //             name: "市价总值",
+            //             data: yData1
+            //         }, {
+            //             name: "成交总额",
+            //             data: yData2
+            //         }, {
+            //             name: "平均市盈率",
+            //             data: yData3
+            //         }]
+            //     });
+            // }).fail(function (jqXHR) {
+            //     console.log("Ajax Fail: ", jqXHR.status, jqXHR.statusText);
+            // });
 
             //获取CSRC行业分类数据
             const csrcChart = echarts.init(document.getElementById("csrcChart"), "shine");
             const csrcChartOpt = {
-                tooltip: {
-                    trigger: "item",
-                    formatter: "{b0}<br />股票数：{c0}<br />占比：{d0}%"
-                },
                 legend: {
                     type: "scroll",
                     orient: "vertical",
@@ -642,7 +643,7 @@
                     }
                 },
                 series: [{
-                    name: "CSRC行业分类",
+                    name: "科技服务行业分类",
                     type: "pie",
                     center: ["47%", "55%"],
                     radius: ["30%", "85%"]
@@ -818,7 +819,7 @@
                         }
                     },
                     categories: [{
-                        name: '全栈',
+                        name: '广东',
                         itemStyle: {
                             normal: {
                                 color: '#f2637b'
@@ -847,59 +848,59 @@
                         }
                     }],
                     data: [{
-                        name: '全栈',
+                        name: '赛宝实验室',
                         category: 0,
                         draggable: true
                     }, {
-                        name: '前端',
+                        name: '研究开发',
                         category: 1,
                         draggable: true
                     }, {
-                        name: '移动端',
+                        name: '检验检测',
                         category: 2,
                         draggable: true
                     }, {
-                        name: '服务端',
+                        name: '体系授权',
                         category: 3,
                         draggable: true
                     }, {
-                        name: 'HTML',
+                        name: '可靠性研究',
                         category: 1,
                         draggable: true,
                     }, {
-                        name: 'CSS',
+                        name: '标准研究',
                         category: 1,
                         draggable: true,
                     }, {
-                        name: 'JavaScript',
+                        name: '失效分析',
                         category: 1,
                         draggable: true,
                     }, {
-                        name: 'TypeScript',
+                        name: '质量控制',
                         category: 1,
                         draggable: true,
                     }, {
-                        name: 'Java',
+                        name: 'CMI认证',
                         category: 3,
                         draggable: true,
                     }, {
-                        name: 'PHP',
+                        name: 'ISO认证',
                         category: 3,
                         draggable: true,
                     }, {
-                        name: 'Python',
+                        name: 'ITSS认证',
                         category: 3,
                         draggable: true,
                     }, {
-                        name: 'Andriod',
+                        name: '信息安全产品检测',
                         category: 2,
                         draggable: true,
                     }, {
-                        name: 'Object-C',
+                        name: '产品质量检测',
                         category: 2,
                         draggable: true,
                     }, {
-                        name: 'Swift',
+                        name: '环境工程与试验',
                         category: 2,
                         draggable: true,
                     }],
@@ -950,7 +951,7 @@
                     }, {
                         source: 9,
                         target: 10,
-                        value: '脚本'
+                        value: '超集'
                     }, {
                         source: 2,
                         target: 11,
@@ -966,7 +967,7 @@
                     }, {
                         source: 12,
                         target: 13,
-                        value: 'iOS'
+                        value: '超集'
                     }],
                     lineStyle: {
                         normal: {

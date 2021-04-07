@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <title>北部湾城市群综合科技服务监控大屏</title>
+    <link rel="stylesheet" href="assets/css/app.css" />
+</head>
+
+<body>
+    <div class="chart-wrapper">
+        <div class="chart-div top-40" id="cityMap">
+            <div class="chart-loader">
+                <div class="loader"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="assets/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/countUp.min.js"></script>
+    <script type="text/javascript" src="assets/js/echarts.min.js"></script>
+    <script type="text/javascript" src="assets/js/echarts-china-cities/beibuwan_onlyshape.js"></script>
+    <script type="text/javascript" src="assets/js/echarts-wordcloud.min.js"></script>
+    <script type="text/javascript" src="assets/js/echarts-theme-shine.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //城市经纬度
+            const scatterGeo = {
+                "大庆": [125.03, 46.58]
+            };
+            //城市数据
+            const scatterVal = [{
+                name: "海口",
+                value: 78
+            },
+            {
+                name: "南宁",
+                value: 66
+            },
+            {
+                name: "湛江",
+                value: 12
+            },
+            {
+                name: "北海",
+                value: 99
+            },
+            {
+                name: "齐齐哈尔",
+                value: 14
+            },
+            {
+                name: "盐城",
+                value: 15
+            },
+            {
+                name: "赤峰",
+                value: 16
+            }
+            ];
+            //数据转换，转换后的格式：[{name: 'cityName', value: [lng, lat, val]}, {...}]
+            const convertScatterData = function (data) {
+                let res = [];
+                for (let i = 0; i < data.length; i++) {
+                    let geoCoord = scatterGeo[data[i].name];
+                    if (geoCoord) {
+                        res.push({
+                            name: data[i].name,
+                            value: geoCoord.concat(data[i].value)
+                        });
+                    }
+                }
+                return res;
+            };
+            console.log(convertScatterData(scatterVal))
+            //初始化echarts实例
+            const cityMap = echarts.init(document.getElementById("cityMap"));
+            const cityMapOpt = {
+                geo: {
+                    map: '北部湾城市群市级',
+                    roam: false, //开启鼠标缩放和漫游
+                    zoom: 1, //地图缩放级别
+                    selectedMode: true, //选中模式：single | multiple
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    layoutCenter: ['50%', '50%'], //设置后left/right/top/bottom等属性无效
+                    layoutSize: '100%', //保持地图宽高比
+                    label: {
+                        normal: {
+                            show: true,
+                            fontSize: '20',
+                            fontWeight: '800',
+                            color: '#fff'
+                        },
+                        emphasis: {
+                            show: true,
+                            color: '#f19000'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#101f32',
+                            borderWidth: 1.6,
+                            borderColor: '#43d0d6'
+                        },
+                        emphasis: {
+                            areaColor: '#069'
+                        }
+                    }
+                },
+                backgroundColor: 'rgba(128, 128, 128, 0)',
+                toolbox: {
+                    show: true,
+                    orient: 'vertical',
+                    x: 'right',
+                    y: 'center',
+                    borderColor: '#FFF',       // 工具箱边框颜色
+                    borderWidth: 0,            // 工具箱边框线宽，单位px，默认为0（无边框）
+                    padding: 5,                // 工具箱内边距，单位px，默认各方向内边距为5，
+                    showTitle: false,
+                    feature: {
+                        saveAsImage: {
+                            show: true,
+                            title: '保存为图片',
+                            type: 'png'
+                        },
+                        restore: { show: true },
+                    }
+                }
+            };
+            cityMap.setOption(cityMapOpt);
+        })
+    </script>
+</body>
+
+</html>
